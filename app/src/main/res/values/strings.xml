@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PokemonApp</string>
+    <string name="Pokemon">Pokemon</string>
+    <string name="pokeBall">pokeBall</string>
+    <string name="catchButton">Catch Pokemon\'s</string>
+    <string name="btnYourPokemons">Your Pokemon\'s</string>
 </resources>
