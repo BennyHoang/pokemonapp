@@ -50,17 +50,6 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-
-      /*  LatLng sydney = new LatLng(pokemons.get(1).getLat(), pokemons.get(1).getLat());
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
-
-           // LatLng sydney = new LatLng(34, 20);
-           // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-           // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        /*--------------------------------------------------------------------------------------------------------*/
         new AsyncTask<Void, Void, String>() {
             // private final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
 

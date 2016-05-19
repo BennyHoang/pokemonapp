@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnYourPokemons = (Button) findViewById(R.id.btnYourPokemons);
 
         onClickBtnYourPokemons();
+        onClickBtnCatchPokemons();
     }
 
     //TODO: Replace activity class with something interesting
