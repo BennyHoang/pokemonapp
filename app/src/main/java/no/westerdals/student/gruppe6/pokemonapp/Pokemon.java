@@ -4,17 +4,17 @@ package no.westerdals.student.gruppe6.pokemonapp;
  * Created by OleFredrik on 19.05.2016.
  */
 public class Pokemon {
-    private String id;
+    private String _id;
     private String name;
     private double lat;
-    private double lang;
+    private double lng;
 
     public String getId() {
-        return id;
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -33,12 +33,12 @@ public class Pokemon {
         this.lat = lat;
     }
 
-    public double getLang() {
-        return lang;
+    public double getLng() {
+        return lng;
     }
 
-    public void setLang(double lang) {
-        this.lang = lang;
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     @Override
@@ -60,18 +60,18 @@ public class Pokemon {
     @Override
     public String toString() {
         return "Pokemon{" +
-                "id='" + id + '\'' +
+                "_id='" + _id + '\'' +
                 ", name='" + name + '\'' +
                 ", lat=" + lat +
-                ", lang=" + lang +
+                ", lng=" + lng +
                 '}';
     }
 
-    public Pokemon(String id, String name, double lat, double lang) {
-        this.id = id;
+    public Pokemon(String _id, String name, double lat, double lng) {
+        this._id = _id;
         this.name = name;
         this.lat = lat;
-        this.lang = lang;
+        this.lng = lng;
     }
 
 }

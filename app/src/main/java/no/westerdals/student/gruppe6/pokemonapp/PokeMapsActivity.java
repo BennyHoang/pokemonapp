@@ -10,9 +10,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private ArrayList<Pokemon> pokemons = new PokemonLocation().getPokemons();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,15 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+
+        LatLng sydney = new LatLng(pokemons.get(1).getLat(), pokemons.get(1).getLat());
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+           // LatLng sydney = new LatLng(34, 20);
+           // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+           // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        }
     }
-}
+
