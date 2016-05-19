@@ -4,4 +4,5 @@
     <string name="pokeBall">pokeBall</string>
     <string name="catchButton">Catch Pokemon\'s</string>
     <string name="btnYourPokemons">Your Pokemon\'s</string>
+    <string name="title_activity_poke_maps">PokeMap</string>
 </resources>
