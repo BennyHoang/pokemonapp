@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -108,9 +109,10 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
                     LatLng pos = new LatLng(pokemon.getLat(), pokemon.getLng());
                     mMap.addMarker(new MarkerOptions().position(pos).title(pokemon.getName()));
                 }
-                //LatLng pos = new LatLng(pokemons.get(0).getLat(), pokemons.get(0).getLng());
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
-                //displayContacts(contacts);
+                LatLng pos = new LatLng(pokemons.get(0).getLat(), pokemons.get(0).getLng());
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
+                CameraUpdate zoom = CameraUpdateFactory.zoomTo(12);
+                mMap.animateCamera(zoom);
 
             }
         }.execute();
