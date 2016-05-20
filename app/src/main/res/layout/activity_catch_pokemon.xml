@@ -17,9 +17,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp"
         android:hint="Write Pokemon code for the win"
-        android:editable="true"
-        android:maxLines="1"
-        android:ellipsize="end"
+        android:singleLine="true"
+
         />
 
     <Button
@@ -27,11 +26,11 @@
         android:layout_height="wrap_content"
         android:text="Catch"
         android:id="@+id/button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:textColor="#F0F0F0"
         android:background="#1d5e07"
-        />
+        android:layout_below="@+id/editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp" />
 </RelativeLayout>
