@@ -1,8 +1,10 @@
 <resources>
+    <string name="google_app_id">PokemonApp</string>
     <string name="app_name">PokemonApp</string>
     <string name="Pokemon">Pokemon</string>
     <string name="pokeBall">pokeBall</string>
     <string name="btnCatchPokemon">Catch Pokemon\'s</string>
     <string name="btnYourPokemons">Your Pokemon\'s</string>
     <string name="title_activity_poke_maps">PokeMap</string>
+    <string name="tbnPokemon">Add pokemon</string>
 </resources>
