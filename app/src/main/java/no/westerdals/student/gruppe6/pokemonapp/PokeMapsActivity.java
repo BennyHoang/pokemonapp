@@ -51,37 +51,22 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
 
         new AsyncTask<Void, Void, String>() {
-            // private final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //progressDialog.setMessage("Loading contacts");
-                //progressDialog.show();
             }
 
             @Override
             protected String doInBackground(final Void... params) {
                 try {
-                    // Sleep for a couple of seconds to demo the progress dialog on fast connections.
-                    // Can be safely removed!
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    //Log.e("MainActivity", "Something went wrong while sleeping…", e);
-                }
-
-                try {
                     HttpURLConnection connection = (HttpURLConnection) new URL("https://locations.lehmann.tech/locations").openConnection();
                     Scanner scanner = new Scanner(connection.getInputStream());
-
-                    String json = "";
+                    StringBuilder json = new StringBuilder();
 
                     while (scanner.hasNextLine()) {
-                        json += scanner.nextLine();
+                        json.append(scanner.nextLine());
                     }
-
-                    return json;
-                    //return null;
+                    return json.toString();
                 } catch (IOException e) {
                     throw new RuntimeException("Encountered a problem while downloading contacts", e);
                 }
@@ -102,12 +87,8 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
                 CameraUpdate zoom = CameraUpdateFactory.zoomTo(12);
                 mMap.animateCamera(zoom);
-
             }
         }.execute();
-
-
-
     }
 }
 
