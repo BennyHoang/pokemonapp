@@ -1,8 +1,11 @@
 package no.westerdals.student.gruppe6.pokemonapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +29,8 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
     private GoogleMap mMap;
     private ArrayList<Pokemon> pokemons;
 
+    private Button btnAddPokemon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,16 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        btnAddPokemon = (Button) findViewById(R.id.btnAddPokemon);
+        btnAddPokemon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PokeMapsActivity.this, CatchPokemonActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
 
 
     /**

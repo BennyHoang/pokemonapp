@@ -1,0 +1,13 @@
+package no.westerdals.student.gruppe6.pokemonapp;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class CatchPokemonActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_catch_pokemon);
+    }
+}

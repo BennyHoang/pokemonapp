@@ -36,7 +36,8 @@
 
         <activity
             android:name=".PokeMapsActivity"
-            android:label="@string/title_activity_poke_maps"></activity>
+            android:label="@string/title_activity_poke_maps" />
+        <activity android:name=".CatchPokemonActivity"></activity>
     </application>
 
 </manifest>
