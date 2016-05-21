@@ -7,6 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg_catch"
+    android:scaleType = "fitXY"
     tools:context="no.westerdals.student.gruppe6.pokemonapp.CatchPokemonActivity">
 
     <EditText
@@ -16,6 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp"
+        android:background="#FFF"
+        android:padding="10dp"
         android:hint="Write Pokemon code for the win"
         android:singleLine="true"
 
