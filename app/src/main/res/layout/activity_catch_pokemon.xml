@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Catch"
-        android:id="@+id/button"
+        android:id="@+id/btnSubmitId"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:textColor="#F0F0F0"
@@ -37,4 +37,13 @@
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/responseTextView"
+        android:layout_below="@+id/btnSubmitId"
+        android:layout_alignStart="@+id/btnSubmitId"
+        android:layout_marginTop="52dp" />
 </RelativeLayout>
