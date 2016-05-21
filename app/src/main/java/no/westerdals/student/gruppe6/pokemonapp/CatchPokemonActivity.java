@@ -18,7 +18,13 @@ import java.util.Scanner;
 public class CatchPokemonActivity extends AppCompatActivity {
     private Button btnSubmitId;
     private TextView responseTextView;
-    String apiUrl = "https://locations.lehmann.tech/pokemon/5735a3f86d4c35dab3946e08";
+    /*
+    * TEST ID for pokemon:
+    * Pikachu: s8f9jwewe89fhalifnln39
+    * Pidgeot: fadah89dhadiulabsayub73
+    * Groudon: fj9sfoina9briu420
+    * */
+    String apiUrl = "https://locations.lehmann.tech/pokemon/s8f9jwewe89fhalifnln39";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
