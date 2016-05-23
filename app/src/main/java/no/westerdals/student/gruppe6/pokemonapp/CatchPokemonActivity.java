@@ -65,7 +65,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
                         return stringBuilder.toString();
                     } catch (FileNotFoundException e) {
-                        return "GOT ERROR WITH CODE: " + connection.getResponseCode() + " with message: " + connection.getResponseMessage();
+                        return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
