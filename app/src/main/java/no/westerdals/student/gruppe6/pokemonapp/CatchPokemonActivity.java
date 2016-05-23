@@ -38,7 +38,6 @@ public class CatchPokemonActivity extends AppCompatActivity {
         btnSubmitId = (Button) findViewById(R.id.btnSubmitId);
         responseTextView = (TextView) findViewById(R.id.responseTextView);
         editText = (EditText) findViewById(R.id.editText);
-        final Context context;
         btnSubmitId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,19 +70,21 @@ public class CatchPokemonActivity extends AppCompatActivity {
                             case 200:
                                 return "already created";
                             case 201:
+                                //Reads the input
+                                //TODO: append to JSON Object
+                                //TODO: Create method for inputstream
+                                InputStream inputStream = connection.getInputStream();
+                                Scanner scanner = new Scanner(inputStream);
+
+                                StringBuilder stringBuilder = new StringBuilder();
+                                while (scanner.hasNextLine()) {
+                                    stringBuilder.append(scanner.nextLine());
+                                }
+
                                 return "CATCHED NEW POKEMON! :)";
                         }
 
 
-                        //Reads the input
-                        // TODO: append to JSON Object
-                        InputStream inputStream = connection.getInputStream();
-                        Scanner scanner = new Scanner(inputStream);
-
-                        StringBuilder stringBuilder = new StringBuilder();
-                        while (scanner.hasNextLine()) {
-                            stringBuilder.append(scanner.nextLine());
-                        }
 
                         return "STATUS: 2xx";
                     } catch (FileNotFoundException e) {
