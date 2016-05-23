@@ -2,6 +2,9 @@ package no.westerdals.student.gruppe6.pokemonapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.MifareUltralight;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +41,31 @@ public class CatchPokemonActivity extends AppCompatActivity {
         btnSubmitId = (Button) findViewById(R.id.btnSubmitId);
         responseTextView = (TextView) findViewById(R.id.responseTextView);
         editText = (EditText) findViewById(R.id.editText);
+
+        String action = getIntent().getAction();
+
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
+                || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
+            Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+            MifareUltralight ultralight = MifareUltralight.get(tag);
+
+            try {
+                ultralight.connect();
+                byte[] payload = ultralight.readPages(8);
+                editText.setText(new String(payload));
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(CatchPokemonActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                try {
+                    ultralight.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    Toast.makeText(CatchPokemonActivity.this, "Couldn't close", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        Toast.makeText(CatchPokemonActivity.this, "onCreate done", Toast.LENGTH_SHORT).show();
         btnSubmitId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,11 +73,9 @@ public class CatchPokemonActivity extends AppCompatActivity {
             }
 
         });
-
-
     }
 
-    void displayHttpResponse(CharSequence text){
+    void displayHttpResponse(CharSequence text) {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
         toast.show();
@@ -58,6 +84,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
     void getAndDisplayData(final EditText editText) {
         new AsyncTask<Void, Void, String>() {
             String url = apiUrl + editText.getText();
+
             @Override
             protected String doInBackground(final Void... params) {
                 try {
@@ -66,7 +93,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
                     final int statusCode = connection.getResponseCode();
                     try {
 
-                        switch(statusCode){
+                        switch (statusCode) {
                             case 200:
                                 return "already created";
                             case 201:
@@ -85,12 +112,11 @@ public class CatchPokemonActivity extends AppCompatActivity {
                         }
 
 
-
-                        return "STATUS: 2xx";
+                        return "other status msg: " + statusCode + " = " + connection.getResponseCode();
                     } catch (FileNotFoundException e) {
 
 
-                        switch(statusCode){
+                        switch (statusCode) {
                             case 401:
                                 return "Unauthorized, check your Token plz";
                             case 404:
