@@ -116,7 +116,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
                         }
 
 
-                        return "other status msg: " + statusCode + " = " + connection.getResponseCode();
+                        return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
                     } catch (FileNotFoundException e) {
 
 
