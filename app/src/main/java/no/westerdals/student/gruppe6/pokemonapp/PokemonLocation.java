@@ -53,13 +53,13 @@ public class PokemonLocation {
                     HttpURLConnection connection = (HttpURLConnection) new URL("https://locations.lehmann.tech/locations").openConnection();
                     Scanner scanner = new Scanner(connection.getInputStream());
 
-                    String json = "";
+                    StringBuilder json = new StringBuilder();
 
                     while (scanner.hasNextLine()) {
-                        json += scanner.nextLine();
+                        json.append(scanner.nextLine());
                     }
 
-                    return json;
+                    return json.toString();
                     //return null;
                 } catch (IOException e) {
                     throw new RuntimeException("Encountered a problem while downloading contacts", e);
