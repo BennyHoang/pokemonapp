@@ -54,12 +54,9 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
     }
 
-    void displayHttpResponse( CharSequence text){
+    void displayHttpResponse(CharSequence text){
         Context context = getApplicationContext();
-
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG;);
         toast.show();
     }
 
