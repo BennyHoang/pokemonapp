@@ -32,7 +32,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
     * Pikachu: s8f9jwewe89fhalifnln39
     * Pidgeot: fadah89dhadiulabsayub73
     * Groudon: fj9sfoina9briu420
-    */
+    * */
     String apiUrl = "https://locations.lehmann.tech/pokemon/";
 
     @Override
@@ -94,6 +94,8 @@ public class CatchPokemonActivity extends AppCompatActivity {
                     connection.setRequestProperty("X-Token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImdydXBwZSA2Ig.ZWVrv8AWDiH_X358jZ6IYrNgMXDq1B7UvbyiDoEP2Q0");
                     final int statusCode = connection.getResponseCode();
                     try {
+                        InputStream inputStream = connection.getInputStream();
+                        Scanner scanner = new Scanner(inputStream);
 
                         switch (statusCode) {
                             case 200:
@@ -126,7 +128,8 @@ public class CatchPokemonActivity extends AppCompatActivity {
                             case 420:
                                 return "Wrong ID";
                         }
-                        return "other status msg: " + statusCode + " = " + connection.getResponseCode();
+                       // return "other status msg: " + statusCode + " = " + connection.getResponseCode();
+                        return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
