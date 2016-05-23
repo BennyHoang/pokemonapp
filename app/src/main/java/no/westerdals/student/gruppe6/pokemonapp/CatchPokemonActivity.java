@@ -104,8 +104,8 @@ public class CatchPokemonActivity extends AppCompatActivity {
                                 //Reads the input
                                 //TODO: append to JSON Object
                                 //TODO: Create method for inputstream
-                                InputStream inputStream = connection.getInputStream();
-                                Scanner scanner = new Scanner(inputStream);
+                                inputStream = connection.getInputStream();
+                                scanner = new Scanner(inputStream);
 
                                 StringBuilder stringBuilder = new StringBuilder();
                                 while (scanner.hasNextLine()) {
@@ -114,9 +114,8 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
                                 return "CATCHED NEW POKEMON! :)";
                         }
-
-
-                        return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
+                        return "other status msg: " + statusCode + " = " + connection.getResponseCode();
+                        //return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
                     } catch (FileNotFoundException e) {
 
 
@@ -128,8 +127,8 @@ public class CatchPokemonActivity extends AppCompatActivity {
                             case 420:
                                 return "Wrong ID";
                         }
-                       // return "other status msg: " + statusCode + " = " + connection.getResponseCode();
-                        return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
+                         return "other status msg: " + statusCode + " = " + connection.getResponseCode();
+                       // return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
