@@ -50,14 +50,6 @@ public class PokemonLocation {
             @Override
             protected String doInBackground(final Void... params) {
                 try {
-                    // Sleep for a couple of seconds to demo the progress dialog on fast connections.
-                    // Can be safely removed!
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    //Log.e("MainActivity", "Something went wrong while sleeping…", e);
-                }
-
-                try {
                     HttpURLConnection connection = (HttpURLConnection) new URL("https://locations.lehmann.tech/locations").openConnection();
                     Scanner scanner = new Scanner(connection.getInputStream());
 
