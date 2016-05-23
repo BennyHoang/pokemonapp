@@ -62,7 +62,7 @@ public class PokemonLocation {
                     return json.toString();
                     //return null;
                 } catch (IOException e) {
-                    throw new RuntimeException("Encountered a problem while downloading contacts", e);
+                    throw new RuntimeException("Encountered a problem while downloading pokemon's", e);
                 }
             }
 

@@ -6,6 +6,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,8 +55,8 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
             try {
                 ultralight.connect();
-                byte[] payload = ultralight.readPages(8);
-                editText.setText(new String(payload, Charset.forName("US-ASCII")));
+                String nFCID = getPokemonIdFromNFC(ultralight);
+                editText.setText(nFCID);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(CatchPokemonActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -75,6 +76,26 @@ public class CatchPokemonActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    //Insane hack to get rid of NFC flags in string.
+    @NonNull
+    private String getPokemonIdFromNFC(MifareUltralight ultralight) throws IOException {
+        byte[] payload = ultralight.readPages(6);
+        StringBuilder builder = new StringBuilder();
+        String output = new String(payload, Charset.forName("US-ASCII"));
+        builder.append(output);
+        builder.deleteCharAt(0);
+        payload = ultralight.readPages(10);
+        byte[] bytes = new byte[16];
+        for(int i = 0; i < payload.length; i++)
+        {
+            if(payload[i] == -2) break;
+                bytes[i] = payload[i];
+        }
+
+        builder.append(new String(bytes, Charset.forName("US-ASCII")));
+        return builder.toString();
     }
 
     void displayHttpResponse(CharSequence text) {
