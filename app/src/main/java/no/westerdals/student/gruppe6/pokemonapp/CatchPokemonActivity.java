@@ -27,11 +27,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
     * Pikachu: s8f9jwewe89fhalifnln39
     * Pidgeot: fadah89dhadiulabsayub73
     * Groudon: fj9sfoina9briu420
-    * TODO: Create Satuts messages for Status on catched pokemons
-    * 200 = Catched
-    * 201 = NEW CATCH
-    * 420 = No
-    * */
+    */
     String apiUrl = "https://locations.lehmann.tech/pokemon/";
 
     @Override
@@ -56,7 +52,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
     void displayHttpResponse(CharSequence text){
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG;);
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
         toast.show();
     }
 
@@ -68,8 +64,19 @@ public class CatchPokemonActivity extends AppCompatActivity {
                 try {
                     HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
                     connection.setRequestProperty("X-Token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImdydXBwZSA2Ig.ZWVrv8AWDiH_X358jZ6IYrNgMXDq1B7UvbyiDoEP2Q0");
-
+                    final int statusCode = connection.getResponseCode();
                     try {
+
+                        switch(statusCode){
+                            case 200:
+                                return "already created";
+                            case 201:
+                                return "CATCHED NEW POKEMON! :)";
+                        }
+
+
+                        //Reads the input
+                        // TODO: append to JSON Object
                         InputStream inputStream = connection.getInputStream();
                         Scanner scanner = new Scanner(inputStream);
 
@@ -78,16 +85,19 @@ public class CatchPokemonActivity extends AppCompatActivity {
                             stringBuilder.append(scanner.nextLine());
                         }
 
-                        return stringBuilder.toString();
+                        return "STATUS: 2xx";
                     } catch (FileNotFoundException e) {
 
-                        final int statusCode = connection.getResponseCode();
+
                         switch(statusCode){
+                            case 401:
+                                return "Unauthorized, check your Token plz";
+                            case 404:
+                                return "Please sumbit ID";
                             case 420:
                                 return "Wrong ID";
-
                         }
-                        return "GOT ERROR WITH CODE: " + connection.getResponseCode() + " with message: " + connection.getResponseMessage();
+                        return "other status msg: " + statusCode + " = " + connection.getResponseCode();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
