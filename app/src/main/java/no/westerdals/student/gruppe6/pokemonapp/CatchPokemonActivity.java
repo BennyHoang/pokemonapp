@@ -8,6 +8,7 @@ import android.nfc.tech.MifareUltralight;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class CatchPokemonActivity extends AppCompatActivity {
@@ -53,7 +55,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
             try {
                 ultralight.connect();
                 byte[] payload = ultralight.readPages(8);
-                editText.setText(new String(payload));
+                editText.setText(new String(payload, Charset.forName("US-ASCII")));
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(CatchPokemonActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
