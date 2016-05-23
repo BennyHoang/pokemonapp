@@ -1,5 +1,6 @@
 package no.westerdals.student.gruppe6.pokemonapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,6 +27,10 @@ public class CatchPokemonActivity extends AppCompatActivity {
     * Pikachu: s8f9jwewe89fhalifnln39
     * Pidgeot: fadah89dhadiulabsayub73
     * Groudon: fj9sfoina9briu420
+    * TODO: Create Satuts messages for Status on catched pokemons
+    * 200 = Catched
+    * 201 = NEW CATCH
+    * 420 = No
     * */
     String apiUrl = "https://locations.lehmann.tech/pokemon/";
 
@@ -36,6 +42,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
         btnSubmitId = (Button) findViewById(R.id.btnSubmitId);
         responseTextView = (TextView) findViewById(R.id.responseTextView);
         editText = (EditText) findViewById(R.id.editText);
+        final Context context;
         btnSubmitId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +50,17 @@ public class CatchPokemonActivity extends AppCompatActivity {
             }
 
         });
+
+
+    }
+
+    void displayHttpResponse( CharSequence text){
+        Context context = getApplicationContext();
+
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     void getAndDisplayData(final EditText editText) {
@@ -65,6 +83,13 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
                         return stringBuilder.toString();
                     } catch (FileNotFoundException e) {
+
+                        final int statusCode = connection.getResponseCode();
+                        switch(statusCode){
+                            case 420:
+                                return "Wrong ID";
+
+                        }
                         return "GOT ERROR WITH CODE: " + connection.getResponseCode() + " with message: " + connection.getResponseMessage();
                     }
                 } catch (IOException e) {
@@ -77,6 +102,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
             protected void onPostExecute(final String response) {
                 super.onPostExecute(response);
                 responseTextView.setText(response);
+                displayHttpResponse(response);
             }
         }.execute();
     }
