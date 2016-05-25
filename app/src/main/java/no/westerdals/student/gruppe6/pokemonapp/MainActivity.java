@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnYourPokemons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PokeMapsActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyPokemonListActivity.class);
                 startActivity(intent);
             }
         });

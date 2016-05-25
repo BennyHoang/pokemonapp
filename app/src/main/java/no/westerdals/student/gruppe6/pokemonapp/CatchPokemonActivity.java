@@ -76,6 +76,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
                 ultralight.connect();
                 String nFCID = getPokemonIdFromNFC(ultralight);
                 editText.setText(nFCID);
+                getAndDisplayData(editText);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(CatchPokemonActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -131,7 +132,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
                         switch (statusCode) {
                             case 200:
-                                //TODO: Move to case 200 after testing!
+                                //TODO: Move to case 201 after testing!
                                 inputStream = connection.getInputStream();
                                 scanner = new Scanner(inputStream);
 
@@ -144,7 +145,8 @@ public class CatchPokemonActivity extends AppCompatActivity {
                                 MyPokemon Mypokemon = new MyPokemon(jsonObject);
                                 DBhandler dBhandler = new DBhandler(context);
                                 dBhandler.addPokemon(Mypokemon);
-                                ArrayList<MyPokemon> arrayList = dBhandler.getAllMyPokemons();
+                                Intent intent = new Intent(CatchPokemonActivity.this, MyPokemonListActivity.class);
+                                startActivity(intent);
                                 return "already created";
                             case 201:
                                 //Reads the input
