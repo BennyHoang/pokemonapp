@@ -23,6 +23,10 @@ public class MyPokemon {
                 '}';
     }
 
+    public boolean comparePokemon(Pokemon pokemon){
+        return pokemon.getName().equals(this.getName());
+    }
+/*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,7 +37,7 @@ public class MyPokemon {
         return getPokemonID() == myPokemon.getPokemonID() && getNfcID().equals(myPokemon.getNfcID());
 
     }
-
+*/
 
     public MyPokemon(String pokemonID, String nfcID, String name, String imageURL) {
         setPokemonID(pokemonID);
