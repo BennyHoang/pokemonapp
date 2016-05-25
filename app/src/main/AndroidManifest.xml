@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="no.westerdals.student.gruppe6.pokemonapp" >
+    package="no.westerdals.student.gruppe6.pokemonapp">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -15,8 +15,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +38,7 @@
         <activity
             android:name=".PokeMapsActivity"
             android:label="@string/title_activity_poke_maps" />
-        <activity android:name=".CatchPokemonActivity" >
+        <activity android:name=".CatchPokemonActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -48,8 +48,8 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyPokemonListActivity" >
-        </activity>
+        <activity android:name=".MyPokemonListActivity"></activity>
+        <activity android:name=".SelectedPokemonActivity"></activity>
     </application>
 
 </manifest>
