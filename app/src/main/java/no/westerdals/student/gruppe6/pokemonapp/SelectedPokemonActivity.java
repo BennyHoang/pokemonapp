@@ -1,22 +1,86 @@
 package no.westerdals.student.gruppe6.pokemonapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.InputStream;
+import java.net.URL;
+
 public class SelectedPokemonActivity extends AppCompatActivity {
-    private TextView pokemon_id;
+    private TextView pokemon_name;
+    private MyPokemon myPokemon;
+    private Button btn_maps, btn_catch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_pokemon);
         Intent i = getIntent();
         String id = i.getExtras().getString("Pokemon");
-        pokemon_id = (TextView) findViewById(R.id.pokemon_id);
+        myPokemon = new MyPokemonManager(getApplicationContext()).getPokemonById(id);
+        pokemon_name = (TextView) findViewById(R.id.pokemon_name);
+        pokemon_name.setText(myPokemon.getName());
 
-        pokemon_id.setText(id);
+        btn_maps = (Button) findViewById(R.id.btn_maps);
+        btn_catch = (Button) findViewById(R.id.btn_catch);
+        new DownloadImageTask((ImageView) findViewById(R.id.pokemon_image)).execute(myPokemon.getImageURL());
+
+        onClickBtnCatchPokemons();
+        onClickBtnPokemonMap();
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
+    private void onClickBtnPokemonMap(){
+        btn_maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectedPokemonActivity.this, PokeMapsActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void onClickBtnCatchPokemons(){
+        btn_catch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectedPokemonActivity.this, CatchPokemonActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
