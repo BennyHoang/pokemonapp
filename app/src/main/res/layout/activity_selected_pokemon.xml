@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pokemon map"
-        android:id="@+id/button"
+        android:id="@+id/btn_maps"
         android:layout_marginStart="20dp"
         android:layout_below="@+id/pokemon_name"
         android:layout_alignParentStart="true"
@@ -49,9 +49,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Catch pokemon"
-        android:id="@+id/button2"
+        android:id="@+id/btn_catch"
         android:layout_marginEnd="24dp"
-        android:layout_alignTop="@+id/button"
+        android:layout_alignTop="@+id/btn_maps"
         android:layout_alignEnd="@+id/pokemon_name" />
 
 
