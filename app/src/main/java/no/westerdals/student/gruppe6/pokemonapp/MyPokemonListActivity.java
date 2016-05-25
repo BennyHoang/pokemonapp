@@ -9,25 +9,37 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MyPokemonListActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pokemon_list);
 
-        ArrayList<String> myPokemons = parsePokemon(new MyPokemonManager(getApplicationContext()).getMyPokemonList());
+        final ArrayList<String> myPokemons = parsePokemon(new MyPokemonManager(getApplicationContext()).getMyPokemonList());
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, myPokemons);
-        ListView lv = (ListView) findViewById(R.id.listView);
+        final ListView lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedFromList =(String) (lv.getItemAtPosition(position));
+                showPopup(selectedFromList);
+            }
+        });
     }
 
     private ArrayList<String> parsePokemon(ArrayList<MyPokemon> list) {
@@ -40,12 +52,13 @@ public class MyPokemonListActivity extends AppCompatActivity {
 
     private PopupWindow pwindow;
 
-    private void showPopup() {
+    private void showPopup(String name) {
         LayoutInflater inflater = (LayoutInflater) MyPokemonListActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.screen_popup, (ViewGroup) findViewById(R.id.popup_element));
         pwindow = new PopupWindow(layout, 300, 370, true);
         pwindow.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
+        TextView pokemon_title = (TextView) layout.findViewById(R.id.pokemon_title);
+        pokemon_title.setText(name);
 
     }
 
