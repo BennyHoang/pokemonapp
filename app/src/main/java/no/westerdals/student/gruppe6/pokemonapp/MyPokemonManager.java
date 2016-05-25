@@ -22,4 +22,8 @@ public class MyPokemonManager {
     public ArrayList<MyPokemon> getMyPokemonList (){
         return dBhandler.getAllMyPokemons();
     }
+
+    public MyPokemon getPokemonById(String key){
+        return dBhandler.getPokemon(key);
+    }
 }

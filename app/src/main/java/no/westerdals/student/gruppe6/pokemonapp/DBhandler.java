@@ -57,6 +57,25 @@ public class DBhandler extends SQLiteOpenHelper {
         return myPokemonList;
     }
 
+    public MyPokemon getPokemon(String key) {
+        String selectQuery = "SELECT  * FROM " + TABLE_POKEMON + " WHERE " + KEY_ID + "='" + key +"';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        cursor.moveToFirst();
+        MyPokemon myPokemon = new MyPokemon(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            );
+        cursor.moveToNext();
+
+        db.close();
+        return myPokemon;
+    }
 
     public void addPokemon(MyPokemon myPokemon) {
         SQLiteDatabase db = this.getWritableDatabase();
