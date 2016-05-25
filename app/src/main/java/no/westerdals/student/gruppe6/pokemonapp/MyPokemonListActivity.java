@@ -53,16 +53,6 @@ public class MyPokemonListActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }
-
-                /*
-                String selectedFromList = (String) (lv.getItemAtPosition(position));
-                final ArrayList<MyPokemon> myPokemons = new MyPokemonManager(getApplicationContext()).getMyPokemonList();
-                for(MyPokemon p : myPokemons){
-                    if(selectedFromList.equals(p.getName())){
-                        showPopup(p.getName(), p.getImageURL());
-                    }
-                }
-                */
             }
         });
     }
@@ -73,20 +63,6 @@ public class MyPokemonListActivity extends AppCompatActivity {
             tempList.add(p.getName());
         }
         return tempList;
-    }
-
-    private PopupWindow pwindow;
-
-    private void showPopup(String name, String image) {
-        LayoutInflater inflater = (LayoutInflater) MyPokemonListActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.screen_popup, (ViewGroup) findViewById(R.id.popup_element));
-        pwindow = new PopupWindow(layout, 700, 370, true);
-        pwindow.showAtLocation(layout, Gravity.CENTER, 0, 0);
-        TextView pokemon_name = (TextView) layout.findViewById(R.id.pokemon_name);
-        ImageView pokemon_image = (ImageView) layout.findViewById(R.id.pokemon_image);
-        pokemon_name.setText(name);
-        pokemon_image.setImageURI(Uri.parse(image));
-
     }
 
 
