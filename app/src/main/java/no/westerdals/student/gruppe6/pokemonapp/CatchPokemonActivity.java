@@ -32,7 +32,6 @@ import java.util.Scanner;
 
 public class CatchPokemonActivity extends AppCompatActivity {
     private Button btnSubmitId;
-    private TextView responseTextView;
     private EditText editText;
     private Context context;
     /*
@@ -49,7 +48,6 @@ public class CatchPokemonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_catch_pokemon);
 
         btnSubmitId = (Button) findViewById(R.id.btnSubmitId);
-        responseTextView = (TextView) findViewById(R.id.responseTextView);
         editText = (EditText) findViewById(R.id.editText);
 
         detectNFC();
@@ -185,7 +183,6 @@ public class CatchPokemonActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(final String response) {
                 super.onPostExecute(response);
-                responseTextView.setText(response);
                 displayHttpResponse(response);
             }
         }.execute();
