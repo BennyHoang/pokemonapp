@@ -131,33 +131,18 @@ public class CatchPokemonActivity extends AppCompatActivity {
                         switch (statusCode) {
                             case 200:
                                 //TODO: Move to case 201 after testing!
-                                inputStream = connection.getInputStream();
-                                scanner = new Scanner(inputStream);
-
-                                StringBuilder stringBuilder = new StringBuilder();
-                                while (scanner.hasNextLine()) {
-                                    stringBuilder.append(scanner.nextLine());
-                                }
-
-                                JSONObject jsonObject = new JSONObject(new String(stringBuilder.toString()));
-                                MyPokemon Mypokemon = new MyPokemon(jsonObject);
-                                DBhandler dBhandler = new DBhandler(context);
-                                dBhandler.addPokemon(Mypokemon);
-                                Intent intent = new Intent(CatchPokemonActivity.this, MyPokemonListActivity.class);
-                                startActivity(intent);
+                                uppdateDatabaseAndStartNewActivity(connection);
                                 return "already created";
                             case 201:
                                 //Reads the input
                                 //TODO: append to JSON Object
                                 //TODO: Create method for inputstream
-
-
+                                uppdateDatabaseAndStartNewActivity(connection);
                                 return "CATCHED NEW POKEMON! :)";
                         }
                         return "other status msg: " + statusCode + " = " + connection.getResponseCode();
                         //return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
                     } catch (FileNotFoundException e) {
-
 
                         switch (statusCode) {
                             case 401:
@@ -186,6 +171,25 @@ public class CatchPokemonActivity extends AppCompatActivity {
                 displayHttpResponse(response);
             }
         }.execute();
+    }
+
+    private void uppdateDatabaseAndStartNewActivity(HttpURLConnection connection) throws IOException, JSONException {
+        InputStream inputStream;
+        Scanner scanner;
+        inputStream = connection.getInputStream();
+        scanner = new Scanner(inputStream);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        while (scanner.hasNextLine()) {
+            stringBuilder.append(scanner.nextLine());
+        }
+
+        JSONObject jsonObject = new JSONObject(new String(stringBuilder.toString()));
+        MyPokemon Mypokemon = new MyPokemon(jsonObject);
+        DBhandler dBhandler = new DBhandler(context);
+        dBhandler.addPokemon(Mypokemon);
+        Intent intent = new Intent(CatchPokemonActivity.this, MyPokemonListActivity.class);
+        startActivity(intent);
     }
 
 }
