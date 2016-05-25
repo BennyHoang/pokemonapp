@@ -49,7 +49,7 @@ public class MyPokemonListActivity extends AppCompatActivity {
                 for(MyPokemon p : myPokemons){
                     if(selectedFromList.equals(p.getName())){
                         Intent intent = new Intent(MyPokemonListActivity.this, SelectedPokemonActivity.class);
-                        intent.putExtra("Pokemon", myPokemons);
+                        intent.putExtra("Pokemon", p.getPokemonID());
                         startActivity(intent);
                     }
                 }
