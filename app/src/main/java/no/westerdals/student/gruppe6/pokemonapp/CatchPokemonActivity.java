@@ -16,18 +16,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CatchPokemonActivity extends AppCompatActivity {
     private Button btnSubmitId;
     private TextView responseTextView;
     private EditText editText;
+    private Context context;
     /*
     * TEST ID for pokemon:
     * Pikachu: s8f9jwewe89fhalifnln39
@@ -45,6 +52,18 @@ public class CatchPokemonActivity extends AppCompatActivity {
         responseTextView = (TextView) findViewById(R.id.responseTextView);
         editText = (EditText) findViewById(R.id.editText);
 
+        detectNFC();
+        context = getApplicationContext();
+        Toast.makeText(CatchPokemonActivity.this, "onCreate done", Toast.LENGTH_SHORT).show();
+        btnSubmitId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAndDisplayData(editText);
+            }
+        });
+    }
+
+    private void detectNFC() {
         String action = getIntent().getAction();
 
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
@@ -68,14 +87,6 @@ public class CatchPokemonActivity extends AppCompatActivity {
                 }
             }
         }
-        Toast.makeText(CatchPokemonActivity.this, "onCreate done", Toast.LENGTH_SHORT).show();
-        btnSubmitId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getAndDisplayData(editText);
-            }
-
-        });
     }
 
     //Insane hack to get rid of NFC flags in string.
@@ -120,11 +131,7 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
                         switch (statusCode) {
                             case 200:
-                                return "already created";
-                            case 201:
-                                //Reads the input
-                                //TODO: append to JSON Object
-                                //TODO: Create method for inputstream
+                                //TODO: Move to case 200 after testing!
                                 inputStream = connection.getInputStream();
                                 scanner = new Scanner(inputStream);
 
@@ -132,6 +139,18 @@ public class CatchPokemonActivity extends AppCompatActivity {
                                 while (scanner.hasNextLine()) {
                                     stringBuilder.append(scanner.nextLine());
                                 }
+
+                                JSONObject jsonObject = new JSONObject(new String(stringBuilder.toString()));
+                                MyPokemon Mypokemon = new MyPokemon(jsonObject);
+                                DBhandler dBhandler = new DBhandler(context);
+                                dBhandler.addPokemon(Mypokemon);
+                                ArrayList<MyPokemon> arrayList = dBhandler.getAllMyPokemons();
+                                return "already created";
+                            case 201:
+                                //Reads the input
+                                //TODO: append to JSON Object
+                                //TODO: Create method for inputstream
+
 
                                 return "CATCHED NEW POKEMON! :)";
                         }
@@ -150,11 +169,15 @@ public class CatchPokemonActivity extends AppCompatActivity {
                         }
                          return "other status msg: " + statusCode + " = " + connection.getResponseCode();
                        // return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                     throw new RuntimeException(e);
                 }
+                //TODO: Wat is this method supposed to return! Se: http://viralswarm.s3.amazonaws.com/wp-content/uploads/2014/11/AYch4Io.jpg
+                return "Wat";
             }
 
             @Override

@@ -1,11 +1,14 @@
 package no.westerdals.student.gruppe6.pokemonapp;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by OleFredrik on 23.05.2016.
  */
 public class MyPokemon {
 
-    private int pokemonID;
+    private String pokemonID;
     private String nfcID;
     private String name;
     private String imageURL;
@@ -31,31 +34,32 @@ public class MyPokemon {
 
     }
 
-    @Override
-    public int hashCode() {
-        int result = getPokemonID();
-        result = 31 * result + getNfcID().hashCode();
-        return result;
-    }
 
-    public MyPokemon(int pokemonID, String nfcID, String name, String imageURL) {
+    public MyPokemon(String pokemonID, String nfcID, String name, String imageURL) {
         setPokemonID(pokemonID);
         setNfcID(nfcID);
         setName(name);
         setImageURL(imageURL);
     }
 
-    public MyPokemon(int pokemonID, String nfcID, String name) {
+    public MyPokemon(String pokemonID, String nfcID, String name) {
         setPokemonID(pokemonID);
         setNfcID(nfcID);
         setName(name);
     }
 
-    public int getPokemonID() {
+    public MyPokemon(JSONObject jsonObject) throws JSONException {
+        setPokemonID(jsonObject.getString("_id"));
+        setNfcID(jsonObject.getString("id"));
+        setName(jsonObject.getString("name"));
+        setImageURL(jsonObject.getString("imageUrl"));
+    }
+
+    public String getPokemonID() {
         return pokemonID;
     }
 
-    public void setPokemonID(int pokemonID) {
+    public void setPokemonID(String pokemonID) {
         this.pokemonID = pokemonID;
     }
 

@@ -29,7 +29,7 @@ public class DBhandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(final SQLiteDatabase db) {
         String CREATE_POKEMON_TABLE = "CREATE TABLE " + TABLE_POKEMON + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NFC_ID + " TEXT,"
+                + KEY_ID + " TEXT PRIMARY KEY," + KEY_NFC_ID + " TEXT,"
                 + KEY_POKEMON_NAME + " TEXT, " + KEY_IMAGE_URL + ")";
         db.execSQL(CREATE_POKEMON_TABLE);
     }
@@ -44,7 +44,7 @@ public class DBhandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) do {
             MyPokemon myPokemon = new MyPokemon(
-                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(0),
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3)
