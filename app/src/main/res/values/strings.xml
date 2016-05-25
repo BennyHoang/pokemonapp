@@ -7,4 +7,7 @@
     <string name="btnYourPokemons">Your Pokemon\'s</string>
     <string name="title_activity_poke_maps">PokeMap</string>
     <string name="tbnPokemon">Add pokemon</string>
+    <string name="permission_required_toast">Permission Required</string>
+    <string name="location_permission_denied">Location denied permission</string>
+    <string name="permission_rationale_location">permission_rationale_location</string>
 </resources>
