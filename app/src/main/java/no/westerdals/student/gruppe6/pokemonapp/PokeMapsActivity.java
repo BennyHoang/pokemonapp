@@ -12,6 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
@@ -93,9 +94,30 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
                 //progressDialog.cancel();
                 //final List<Contact> contacts = contactsFromJson(json);
                 pokemons = new Gson().fromJson(json.toString(), new TypeToken<List<Pokemon>>(){}.getType());
+                ArrayList<MyPokemon> myPokemons = new MyPokemonManager(getApplicationContext()).getMyPokemonList();
                 for (Pokemon pokemon : pokemons ) {
+                    boolean alreadyInDB = false;
+
+                    for(MyPokemon p : myPokemons)
+                        if (p.comparePokemon(pokemon)) alreadyInDB = true;
+
+
                     LatLng pos = new LatLng(pokemon.getLat(), pokemon.getLng());
-                    mMap.addMarker(new MarkerOptions().position(pos).title(pokemon.getName()));
+                    if(alreadyInDB) {
+                        mMap.addMarker(
+                                new MarkerOptions()
+                                        .position(pos)
+                                        .title(pokemon.getName())
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                        .snippet("Kåt")
+                        );
+                    } else {
+                        mMap.addMarker(
+                                new MarkerOptions()
+                                        .position(pos)
+                                        .title(pokemon.getName())
+                        );
+                    }
                 }
                 LatLng pos = new LatLng(pokemons.get(0).getLat(), pokemons.get(0).getLng());
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
