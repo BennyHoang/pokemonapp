@@ -19,16 +19,15 @@ package no.westerdals.student.gruppe6.pokemonapp;
 /*
 * Source https://github.com/googlemaps/android-samples/blob/master/ApiDemos/app/src/main/java/com/example/mapdemo/PermissionUtils.java
 * */
-        import android.Manifest;
-        import android.app.AlertDialog;
-        import android.app.Dialog;
-        import android.content.DialogInterface;
-        import android.content.pm.PackageManager;
-        import android.os.Bundle;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v4.app.DialogFragment;
-        import android.support.v7.app.AppCompatActivity;
-        import android.widget.Toast;
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
+import android.widget.Toast;
 
 /**
  * Utility class for access to runtime permissions.
