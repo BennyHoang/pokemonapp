@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.io.InputStream;
-import java.net.URL;
 
 public class SelectedPokemonActivity extends AppCompatActivity {
     private TextView pokemon_name;
@@ -26,7 +22,7 @@ public class SelectedPokemonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_pokemon);
         Intent i = getIntent();
-        String id = i.getExtras().getString("Pokemon");
+        String id = i.getExtras().getString(getString(R.string.Pokemon));
         myPokemon = new MyPokemonManager(getApplicationContext()).getPokemonById(id);
         pokemon_name = (TextView) findViewById(R.id.pokemon_name);
         pokemon_name.setText(myPokemon.getName());
@@ -53,7 +49,7 @@ public class SelectedPokemonActivity extends AppCompatActivity {
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
-                Log.e("Error", e.getMessage());
+                Log.e(getString(R.string.error), e.getMessage());
                 e.printStackTrace();
             }
             return mIcon11;

@@ -23,4 +23,5 @@
     <string name="json_download_error">Encountered a problem while downloading pokemon\'s</string>
     <string name="dialog">dialog</string>
     <string name="pokemon_caught_map">Caught</string>
+    <string name="error">Error</string>
 </resources>
