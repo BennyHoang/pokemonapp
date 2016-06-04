@@ -10,4 +10,12 @@
     <string name="permission_required_toast">Permission Required</string>
     <string name="location_permission_denied">Location denied permission</string>
     <string name="permission_rationale_location">permission_rationale_location</string>
+    <string name="return_value_200">You already have this pokemon</string>
+    <string name="return_value_201">CATCHED NEW POKEMON! :)</string>
+    <string name="return_value_401">Unauthorized, check your Token plz</string>
+    <string name="return_value_404">Please submit ID</string>
+    <string name="return_value_402">Wrong ID</string>
+    <string name="token_type">X-Token</string>
+    <string name="token_value">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImdydXBwZSA2Ig.ZWVrv8AWDiH_X358jZ6IYrNgMXDq1B7UvbyiDoEP2Q0</string>
+    <string name="api_url_catch">https://locations.lehmann.tech/pokemon/</string>
 </resources>

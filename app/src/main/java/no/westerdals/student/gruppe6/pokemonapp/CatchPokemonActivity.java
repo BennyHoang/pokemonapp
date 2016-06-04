@@ -6,17 +6,13 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,25 +22,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CatchPokemonActivity extends AppCompatActivity {
     private Button btnSubmitId;
     private EditText editText;
     private Context context;
+    private String apiUrl;
     /*
     * TEST ID for pokemon:
     * Pikachu: s8f9jwewe89fhalifnln39
     * Pidgeot: fadah89dhadiulabsayub73
     * Groudon: fj9sfoina9briu420
     * */
-    String apiUrl = "https://locations.lehmann.tech/pokemon/";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        apiUrl = getString(R.string.api_url_catch);
         setContentView(R.layout.activity_catch_pokemon);
 
         btnSubmitId = (Button) findViewById(R.id.btnSubmitId);
@@ -52,7 +49,6 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
         detectNFC();
         context = getApplicationContext();
-        Toast.makeText(CatchPokemonActivity.this, "onCreate done", Toast.LENGTH_SHORT).show();
         btnSubmitId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,28 +84,10 @@ public class CatchPokemonActivity extends AppCompatActivity {
         }
     }
 
-    //Insane hack to get rid of NFC flags in string.
     @NonNull
     private String getPokemonIdFromNFC(MifareUltralight ultralight) throws IOException {
         byte[] payload = ultralight.readPages(8);
         return new String(payload);
-
-//        StringBuilder builder = new StringBuilder();
-//        String output = new String(payload, Charset.forName("US-ASCII"));
-//        builder.append(output);
-//        //builder.deleteCharAt(0);
-//        payload = ultralight.readPages(12);
-//        byte[] bytes = new byte[16];
-//        for(int i = 0; i < payload.length; i++)
-//        {
-//            if(payload[i] == -2) break;
-//                bytes[i] = payload[i];
-//        }
-//
-//        builder.append(new String(bytes, Charset.forName("US-ASCII")));
-//        //builder.deleteCharAt(0);
-//        //builder.deleteCharAt(1);
-//        return builder.toString();
     }
 
     void displayHttpResponse(CharSequence text) {
@@ -124,49 +102,39 @@ public class CatchPokemonActivity extends AppCompatActivity {
 
             @Override
             protected String doInBackground(final Void... params) {
+                String returnValue = "";
                 try {
                     HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-                    connection.setRequestProperty("X-Token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImdydXBwZSA2Ig.ZWVrv8AWDiH_X358jZ6IYrNgMXDq1B7UvbyiDoEP2Q0");
+                    connection.setRequestProperty(getString(R.string.token_type), getString(R.string.token_value));
                     final int statusCode = connection.getResponseCode();
                     try {
-                        InputStream inputStream = connection.getInputStream();
-                        Scanner scanner = new Scanner(inputStream);
-
                         switch (statusCode) {
                             case 200:
-                                //TODO: Move to case 201 after testing!
+                                //Updates DB if entry was deleted
                                 uppdateDatabaseAndStartNewActivity(connection);
-                                return "already created";
+                                returnValue = getString(R.string.return_value_200);
+                                break;
                             case 201:
-                                //Reads the input
-                                //TODO: append to JSON Object
-                                //TODO: Create method for inputstream
                                 uppdateDatabaseAndStartNewActivity(connection);
-                                return "CATCHED NEW POKEMON! :)";
-                        }
-                        return "other status msg: " + statusCode + " = " + connection.getResponseCode();
-                        //return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
-                    } catch (FileNotFoundException e) {
-
-                        switch (statusCode) {
+                                returnValue = getString(R.string.return_value_201);
+                                break;
                             case 401:
-                                return "Unauthorized, check your Token plz";
+                                returnValue = getString(R.string.return_value_401);
+                                break;
                             case 404:
-                                return "Please sumbit ID";
+                                returnValue = getString(R.string.return_value_404);
+                                break;
                             case 420:
-                                return "Wrong ID";
+                                returnValue = getString(R.string.return_value_402);
+                                break;
                         }
-                         return "other status msg: " + statusCode + " = " + connection.getResponseCode();
-                       // return new StringBuilder().append("GOT ERROR WITH CODE: ").append(connection.getResponseCode()).append(" with message: ").append(connection.getResponseMessage()).toString();
-                    } catch (JSONException e) {
+                    } catch (FileNotFoundException | JSONException e) {
                         e.printStackTrace();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    throw new RuntimeException(e);
                 }
-                //TODO: Wat is this method supposed to return! Se: http://viralswarm.s3.amazonaws.com/wp-content/uploads/2014/11/AYch4Io.jpg
-                return "Wat";
+                return returnValue;
             }
 
             @Override
