@@ -20,11 +20,11 @@
         android:text="@string/tbnPokemon"
         android:id="@+id/btnAddPokemon"
         android:clickable="false"
-        android:background="#1d5e07"
+        android:background="@color/colorAccent"
         android:capitalize="none"
         android:padding="10dp"
         android:layout_marginBottom="60dp"
-        android:textColor="#F0F0F0"
+        android:textColor="@color/colorLight"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

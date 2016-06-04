@@ -99,8 +99,6 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
             protected void onPostExecute(final String json) {
                 super.onPostExecute(json);
 
-                //progressDialog.cancel();
-                //final List<Contact> contacts = contactsFromJson(json);
                 pokemons = new Gson().fromJson(json.toString(), new TypeToken<List<Pokemon>>(){}.getType());
                 ArrayList<MyPokemon> myPokemons = new MyPokemonManager(getApplicationContext()).getMyPokemonList();
                 for (Pokemon pokemon : pokemons ) {

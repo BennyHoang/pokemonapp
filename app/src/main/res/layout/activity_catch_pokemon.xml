@@ -20,7 +20,7 @@
         android:layout_marginTop="91dp"
         android:background="#FFF"
         android:padding="10dp"
-        android:hint="Write Pokemon code for the win"
+        android:hint="@string/catch_pokemon_hint"
         android:singleLine="true"
 
         />
@@ -28,12 +28,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Catch"
+        android:text="@string/btn_catch"
         android:id="@+id/btnSubmitId"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:textColor="#F0F0F0"
-        android:background="#1d5e07"
+        android:textColor="@color/colorLight"
+        android:background="@color/colorAccent"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp" />

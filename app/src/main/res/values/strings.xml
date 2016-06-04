@@ -24,4 +24,7 @@
     <string name="dialog">dialog</string>
     <string name="pokemon_caught_map">Caught</string>
     <string name="error">Error</string>
+    <string name="catch_pokemon_hint">Write Pokemon code for the win</string>
+    <string name="btn_catch">Catch</string>
+    <string name="pokemon_map">Pokemon map</string>
 </resources>
