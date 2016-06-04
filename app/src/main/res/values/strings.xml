@@ -19,4 +19,7 @@
     <string name="token_value">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImdydXBwZSA2Ig.ZWVrv8AWDiH_X358jZ6IYrNgMXDq1B7UvbyiDoEP2Q0</string>
     <string name="api_url_catch">https://locations.lehmann.tech/pokemon/</string>
     <string name="pokemon">Pokemon</string>
+    <string name="api_url_locations">https://locations.lehmann.tech/locations</string>
+    <string name="json_download_error">Encountered a problem while downloading pokemon\'s</string>
+    <string name="dialog">dialog</string>
 </resources>

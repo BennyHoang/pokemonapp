@@ -4,14 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -59,9 +58,6 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
         });
     }
 
-
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -74,7 +70,6 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
 
@@ -87,7 +82,7 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             protected String doInBackground(final Void... params) {
                 try {
-                    HttpURLConnection connection = (HttpURLConnection) new URL("https://locations.lehmann.tech/locations").openConnection();
+                    HttpURLConnection connection = (HttpURLConnection) new URL(getString(R.string.api_url_locations)).openConnection();
                     Scanner scanner = new Scanner(connection.getInputStream());
                     StringBuilder json = new StringBuilder();
 
@@ -96,7 +91,7 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
                     }
                     return json.toString();
                 } catch (IOException e) {
-                    throw new RuntimeException("Encountered a problem while downloading contacts", e);
+                    throw new RuntimeException(getString(R.string.json_download_error), e);
                 }
             }
 
@@ -154,7 +149,6 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -192,7 +186,7 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
      */
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
-                .newInstance(true).show(getSupportFragmentManager(), "dialog");
+                .newInstance(true).show(getSupportFragmentManager(), getString(R.string.dialog));
     }
 }
 
