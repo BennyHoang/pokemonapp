@@ -117,7 +117,7 @@ public class PokeMapsActivity extends FragmentActivity implements OnMapReadyCall
                                         .position(pos)
                                         .title(pokemon.getName())
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                                        .snippet("Kåt")
+                                        .snippet(getString(R.string.pokemon_caught_map))
                         );
                     } else {
                         mMap.addMarker(
