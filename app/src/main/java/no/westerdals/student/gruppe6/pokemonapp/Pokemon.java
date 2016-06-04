@@ -59,12 +59,7 @@ public class Pokemon {
 
     @Override
     public String toString() {
-        return "Pokemon{" +
-                "_id='" + _id + '\'' +
-                ", name='" + name + '\'' +
-                ", lat=" + lat +
-                ", lng=" + lng +
-                '}';
+        return String.format("Pokemon{_id='%s', name='%s', lat=%s, lng=%s}", _id, name, lat, lng);
     }
 
     public Pokemon(String _id, String name, double lat, double lng) {
