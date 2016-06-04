@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by OleFredrik on 23.05.2016.
  */
+//We do not ues string resources for db object
 public class DBhandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "PokemonDB";
     private static final int DATABASE_VERSION = 1;
@@ -28,15 +29,25 @@ public class DBhandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-        String CREATE_POKEMON_TABLE = "CREATE TABLE " + TABLE_POKEMON + "("
-                + KEY_ID + " TEXT PRIMARY KEY," + KEY_NFC_ID + " TEXT,"
-                + KEY_POKEMON_NAME + " TEXT, " + KEY_IMAGE_URL + ")";
+        StringBuilder builder = new StringBuilder();
+        builder.append("CREATE TABLE ");
+        builder.append(TABLE_POKEMON);
+        builder.append("(");
+        builder.append(KEY_ID);
+        builder.append(" TEXT PRIMARY KEY,");
+        builder.append(KEY_NFC_ID);
+        builder.append(" TEXT,");
+        builder.append(KEY_POKEMON_NAME);
+        builder.append(" TEXT, ");
+        builder.append(KEY_IMAGE_URL);
+        builder.append(")");
+        String CREATE_POKEMON_TABLE = builder.toString();
         db.execSQL(CREATE_POKEMON_TABLE);
     }
 
     public ArrayList<MyPokemon> getAllMyPokemons() {
         ArrayList<MyPokemon> myPokemonList = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_POKEMON + " ORDER BY NAME;";
+        String selectQuery = new StringBuilder().append("SELECT  * FROM ").append(TABLE_POKEMON).append(" ORDER BY NAME;").toString();
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -58,7 +69,7 @@ public class DBhandler extends SQLiteOpenHelper {
     }
 
     public MyPokemon getPokemon(String key) {
-        String selectQuery = "SELECT  * FROM " + TABLE_POKEMON + " WHERE " + KEY_ID + "='" + key +"';";
+        String selectQuery = new StringBuilder().append("SELECT  * FROM ").append(TABLE_POKEMON).append(" WHERE ").append(KEY_ID).append("='").append(key).append("';").toString();
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -95,7 +106,7 @@ public class DBhandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_POKEMON);
+        db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(TABLE_POKEMON).toString());
         // Create tables again
         onCreate(db);
     }
