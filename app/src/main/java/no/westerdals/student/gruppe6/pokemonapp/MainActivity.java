@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         onClickBtnCatchPokemons();
     }
 
-    //TODO: Replace activity class with something interesting
     private void onClickBtnYourPokemons(){
         btnYourPokemons.setOnClickListener(new View.OnClickListener() {
             @Override

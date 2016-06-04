@@ -1,27 +1,13 @@
 package no.westerdals.student.gruppe6.pokemonapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MyPokemonListActivity extends AppCompatActivity {
@@ -49,7 +35,7 @@ public class MyPokemonListActivity extends AppCompatActivity {
                 for(MyPokemon p : myPokemons){
                     if(selectedFromList.equals(p.getName())){
                         Intent intent = new Intent(MyPokemonListActivity.this, SelectedPokemonActivity.class);
-                        intent.putExtra("Pokemon", p.getPokemonID());
+                        intent.putExtra(getString(R.string.pokemon), p.getPokemonID());
                         startActivity(intent);
                     }
                 }

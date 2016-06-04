@@ -15,29 +15,26 @@ public class MyPokemon {
 
     @Override
     public String toString() {
-        return "MyPokemon{" +
-                "pokemonID=" + pokemonID +
-                ", nfcID='" + nfcID + '\'' +
-                ", name='" + name + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("MyPokemon{");
+        builder.append("pokemonID=");
+        builder.append(pokemonID);
+        builder.append(", nfcID='");
+        builder.append(nfcID);
+        builder.append('\'');
+        builder.append(", name='");
+        builder.append(name);
+        builder.append('\'');
+        builder.append(", imageURL='");
+        builder.append(imageURL);
+        builder.append('\'');
+        builder.append('}');
+        return builder.toString();
     }
 
     public boolean comparePokemon(Pokemon pokemon){
         return pokemon.getName().equals(this.getName());
     }
-/*
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MyPokemon)) return false;
-
-        MyPokemon myPokemon = (MyPokemon) o;
-
-        return getPokemonID() == myPokemon.getPokemonID() && getNfcID().equals(myPokemon.getNfcID());
-
-    }
-*/
 
     public MyPokemon(String pokemonID, String nfcID, String name, String imageURL) {
         setPokemonID(pokemonID);

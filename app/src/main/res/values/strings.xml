@@ -18,4 +18,5 @@
     <string name="token_type">X-Token</string>
     <string name="token_value">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImdydXBwZSA2Ig.ZWVrv8AWDiH_X358jZ6IYrNgMXDq1B7UvbyiDoEP2Q0</string>
     <string name="api_url_catch">https://locations.lehmann.tech/pokemon/</string>
+    <string name="pokemon">Pokemon</string>
 </resources>
